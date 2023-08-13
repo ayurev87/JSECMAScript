@@ -14,10 +14,10 @@ console.log(this);
 };
 checkThisInObject.checkThis(); // {testProperty: true, checkThis: ƒ}
 
-const checkThisInObject = {
+const checkThisInObject1 = {
 testProperty: true,
 checkThis: function () {
 console.log(this);
 },
 };
-checkThisInObject.checkThis(); // {testProperty: true, checkThis: ƒ}
+checkThisInObject1.checkThis(); // {testProperty: true, checkThis: ƒ}
