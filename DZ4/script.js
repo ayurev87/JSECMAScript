@@ -18,6 +18,8 @@ try {
   console.log("не правильно адреса ссылки");
 }
 
+
+
 const showUser = (element) => {
   wrapUsers.insertAdjacentHTML(
     "beforeend",
@@ -36,7 +38,7 @@ const deleteButton = (button) =>
     document.getElementById(id).remove();
   });
 
-dataUsers.forEach((element) => showUser(element));
+users.forEach((element) => showUser(element));
 
 const arrayButtons = document.querySelectorAll(".button__del");
 arrayButtons.forEach((element) => deleteButton(element));
