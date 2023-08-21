@@ -11,34 +11,103 @@ const getData = async (url) => {
   return data;
 };
 
+function objToString(obj) {
+  let str = "";
+  for (const [p, val] of Object.entries(obj)) {
+    str += `${val}, `;
+  }
+  return str;
+}
+function div(element, ID) {
+  wrapUsers.insertAdjacentHTML(
+    "beforeend",
+    `
+      <div class="header__title row" id="${ID}">
+        <h4 class="title__table"> ${element}</h4>
+      </div>
+    `
+  );
+}
+
 try {
   const users = await getData(urlUsers);
   console.log(users);
-} catch (error) {
-  console.log("не правильно адреса ссылки");
-}
-
-
-
-const showUser = (element) => {
+  const usersKeys = Object.keys(users[0]);
+  console.log(usersKeys);
+  usersKeys.forEach((element) => {
+    wrapUsers.insertAdjacentHTML(
+      "beforeend",
+      `
+      <div class="header__title row">
+        <h1 class="title__table"> ${element}</h1>
+      </div>
+    `
+    );
+  });
   wrapUsers.insertAdjacentHTML(
     "beforeend",
-    `<figure class="user" id="${element.id}">
-    <a href='#'><h2 class="user__name" id="${element.id}">${element.name}</h2></a>
-  <button class="button__del">Удалить</button>
-</figure>`
+    `
+      <div class="header__title row">
+        <h1 class="title__table"> DEL</h1>
+      </div>
+      `
   );
-  localStorage.setItem(element.id, element);
-};
-
-const deleteButton = (button) =>
-  button.addEventListener("click", () => {
-    const id = button.parentElement.id;
-    localStorage.removeItem(id);
-    document.getElementById(id).remove();
+  users.forEach((element, id) => {
+    let rowUsers = Object.values(element);
+    console.log(rowUsers);
+    rowUsers.forEach((elementuser, index) => {
+      if (index === 4) {
+        div(elementuser.city, id);
+      } else if (index === 7) {
+        div(elementuser.name, id);
+      } else {
+        div(elementuser, id);
+      }
+    });
+    wrapUsers.insertAdjacentHTML(
+      "beforeend",
+      `
+      <div class=" row" id="${id}">
+        <button class="button__del">X</button>
+      </div>
+      `
+    );
+    localStorage.setItem(element.id - 1, element.name);
   });
 
-users.forEach((element) => showUser(element));
+  const deleteButton = (button) =>
+    button.addEventListener("click", () => {
+      const id = button.parentElement.id;
+      localStorage.removeItem(id);
+      document.getelementById(id).remove();
+    });
 
-const arrayButtons = document.querySelectorAll(".button__del");
-arrayButtons.forEach((element) => deleteButton(element));
+  const btns = document.querySelectorAll("button");
+  console.log(btns);
+  btns.forEach((element) => deleteButton(element));
+} catch (error) {
+  console.log("Что-то пошло не так");
+}
+
+// const showUser = (element) => {
+//   wrapUsers.insertAdjacentHTML(
+//     "beforeend",
+//     `<figure class="user" id="${element.id}">
+//     <a href='#'><h2 class="user__name" id="${element.id}">${element.name}</h2></a>
+//   <button class="button__del">Удалить</button>
+// </figure>`
+//   );
+//   localStorage.setItem(element.id, element);
+// };
+
+// const deleteButton = (button) =>
+//   button.addEventListener("click", () => {
+//     const id = button.parentElement.id;
+//     localStorage.removeItem(id);
+//     document.getElementById(id).remove();
+//   });
+
+// users.forEach((element) => showUser(element));
+
+// const arrayButtons = document.querySelectorAll(".button__del");
+// arrayButtons.forEach((element) => deleteButton(element));
