@@ -28,13 +28,8 @@ function div(element, ID) {
     `
   );
 }
-
-try {
-  const users = await getData(urlUsers);
-  console.log(users);
-  const usersKeys = Object.keys(users[0]);
-  console.log(usersKeys);
-  usersKeys.forEach((element) => {
+function nameUpTable(keys) {
+  keys.forEach((element) => {
     wrapUsers.insertAdjacentHTML(
       "beforeend",
       `
@@ -51,6 +46,21 @@ try {
         <h1 class="title__table"> DEL</h1>
       </div>
       `
+  );
+}
+
+try {
+  const users = await getData(urlUsers);
+  console.log(users);
+  const usersKeys = Object.keys(users[0]);
+  console.log(usersKeys);
+  wrapUsers.insertAdjacentHTML(
+    "beforeend",
+    `
+          <div class = "blok">
+          ${nameUpTable(urlUsers)}
+          </div>
+          `
   );
   users.forEach((element, id) => {
     let rowUsers = Object.values(element);
