@@ -1,0 +1,9 @@
+const urlUsers = "https://jsonplaceholder.typicode.com/users";
+const wrapUsers = document.querySelector(".users");
+const divRow = document.createElement("div");
+divRow.className = "row";
+divHead = divRow;
+const head4 = document.createElement("h4");
+head4.className = "title_table";
+const button__del = document.createElement("button");
+button__del.className = "button_del";

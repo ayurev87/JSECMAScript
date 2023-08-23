@@ -42,6 +42,10 @@ a {
 
 .users {
     padding: 0 16px;
+
+}
+
+.blok {
     display: grid;
     grid-template-columns: 3% repeat(7, 1fr) 5%;
     align-items: center;
