@@ -5,10 +5,8 @@
 const urlUsers = "https://jsonplaceholder.typicode.com/users";
 const wrapUsers = document.querySelector(".users");
 
-const button__del = document.createElement("button");
-button__del.className = "button_del";
 
-const rowcellHead = (elementCell) => {
+/* const rowcellHead = (elementCell) => {
   const head4 = document.createElement("h4");
   head4.className = "title_table";
   const divRow = document.createElement("div");
@@ -25,25 +23,31 @@ const rowcellId = (elementCell, id) => {
   divRow.className = "row";
   head4.innerHTML = elementCell;
   divRow.appendChild(head4);
-  blok.setAttribute("id", id);
+  blok.getAttribute(`id`);
   blok.appendChild(divRow);
-};
 
+};
+const delButton =() => {
+  const button__del = document.createElement("button");
+  button__del.className = "button_del";
+  divRow.appendChild( button__del);
+  blok.appendChild(divRow);
+} */
 const getData = async (url) => {
   const res = await fetch(url);
   const data = await res.json();
   return data;
 };
 
-function objToString(obj) {
-  let str = "";
-  for (const [p, val] of Object.entries(obj)) {
-    str += `${val}, `;
-  }
-  return str;
-}
+// function objToString(obj) {
+//   let str = "";
+//   for (const [p, val] of Object.entries(obj)) {
+//     str += `${val}, `;
+//   }
+//   return str;
+// }
 // function div(element, ID) {
-//   wrapUsers.insertAdjacentHTML(
+//   blockUsers.insertAdjacentHTML(
 //     "beforeend",
 //     `
 //       <div class="header__title row" id="${ID}">
@@ -52,57 +56,163 @@ function objToString(obj) {
 //     `
 //   );
 // }
-function nameUpTable(keys) {
-  keys.forEach((element) => {
-    rowcellHead(element);
-  });
-  rowcellHead("Del");
-  wrapUsers.appendChild(blok);
-}
+// function nameUpTable(keys) {
+//   keys.forEach((element) => {
+//     rowcellHead(element);
+//   });
+//   rowcellHead("Del");
+//   wrapUsers.appendChild(blok);
+// }
 
-// try {
+try {
 const users = await getData(urlUsers);
 console.log(users);
 const usersKeys = Object.keys(users[0]);
 console.log(usersKeys);
-const blok = document.createElement("div");
+wrapUsers.insertAdjacentHTML(
+  "beforeend",
+  `
+  <div class="blok" id="head">
+    
+  </div>
+  `
+);
+let head = document.getElementById("head");
+function nameUpTable(keys) {
+  keys.forEach((element) => {
+    head.insertAdjacentHTML(
+      "beforeend",
+    `
+      <div class="header__title row">
+        <h4 class="title__table"> ${element}</h4>
+      </div>
+    `
+    
+  )}
+
+  );
+  head.insertAdjacentHTML(
+    "beforeend",
+  `
+    <div class="header__title row">
+      <h4 class="title__table"> Del</h4>
+    </div>
+  `)
+}
+nameUpTable(usersKeys);
+
+
+/* let blok = document.createElement("div");
 blok.className = "blok";
+blok.setAttribute("id", 'head');
 nameUpTable(usersKeys);
 wrapUsers.appendChild(blok);
 users.forEach((element, id) => {
+  
   let rowUsers = Object.values(element);
+  let blok = document.createElement("div");
+  blok.className = `blok blok-${id}`;
+  blok.setAttribute("id", id);
+  wrapUsers.appendChild(blok); */
+  
+  // function div(element, ID) {
+  //   const blockUsers = document.getElementsByClassName(`blok-${id}`);
+  //   blockUsers.insertAdjacentHTML(
+  //     "beforeend",
+  //     `
+  //       <div class="header__title row" id="${ID}">
+  //         <h4 class="title__table"> ${element}</h4>
+  //       </div>
+  //     `
+  //   );
+  // }
+  // rowUsers.forEach((elementuser, index) => {
+  //       if (index === 4) {
+  //         div(elementuser.city, id);
+  //       } else if (index === 7) {
+  //         div(elementuser.name, id);
+  //       } else {
+  //         div(elementuser, id);
+  //       }
+  //     });
+  // rowUsers.forEach((elementuser, index) => {
+  //   if (index === 4) {
+  //     rowcellId(elementuser.city, id);
+  //   } else if (index === 7) {
+  //     rowcellId(elementuser.name,id);
+  //   } else {
+  //     rowcellId(elementuser, id);
+      
+  //   }
+  // });
+
+  
+  
+// });
+
+users.forEach((element, id) => {
+  let rowUsers = Object.values(element);
+  console.log(rowUsers);
+  wrapUsers.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class="blok" id="${id}">
+      
+    </div>
+    `
+  );
+  let blok = document.getElementById(id);
+  function div(element) {
+  blok.insertAdjacentHTML(
+    "beforeend",
+    `
+      <div class="header__title row" >
+        <h4 class="title__table"> ${element}</h4>
+      </div>
+    `
+  );
+}
   rowUsers.forEach((elementuser, index) => {
     if (index === 4) {
-      rowcellId(elementuser.city, id);
+      div(elementuser.city);
     } else if (index === 7) {
-      rowcellId(elementuser.name, id);
+      div(elementuser.name);
     } else {
-      rowcellId(elementuser, id);
+      div(elementuser);
     }
   });
+  blok.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class=" row" id="${id}">
+      <button class="button__del">X</button>
+    </div>
+    `
+  );
+  localStorage.setItem(element.id - 1, element.name);
 });
-// users.forEach((element, id) => {
-//   let rowUsers = Object.values(element);
-//   console.log(rowUsers);
-//   rowUsers.forEach((elementuser, index) => {
-//     if (index === 4) {
-//       div(elementuser.city, id);
-//     } else if (index === 7) {
-//       div(elementuser.name, id);
-//     } else {
-//       div(elementuser, id);
-//     }
-//   });
-//   wrapUsers.insertAdjacentHTML(
-//     "beforeend",
-//     `
-//     <div class=" row" id="${id}">
-//       <button class="button__del">X</button>
-//     </div>
-//     `
-//   );
-//   localStorage.setItem(element.id - 1, element.name);
-// });
+/* users.forEach((element, id) => {
+  let rowUsers = Object.values(element);
+  console.log(rowUsers);
+  rowUsers.forEach((elementuser, index) => {
+    if (index === 4) {
+      div(elementuser.city, id);
+    } else if (index === 7) {
+      div(elementuser.name, id);
+    } else {
+      div(elementuser, id);
+    }
+  });
+  wrapUsers.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class=" row" id="${id}">
+      <button class="button__del">X</button>
+    </div>
+    `
+  );
+  localStorage.setItem(element.id - 1, element.name);
+}); */
 
 const deleteButton = (button) =>
   button.addEventListener("click", () => {
@@ -111,12 +221,15 @@ const deleteButton = (button) =>
     document.getelementById(id).remove();
   });
 
-const btns = document.querySelectorAll("button");
-console.log(btns);
-btns.forEach((element) => deleteButton(element));
-// } catch (error) {
-//   console.log("Что-то пошло не так");
-// }
+// const btns = document.querySelectorAll("id");
+// console.log(btns);
+// btns.forEach((element) => deleteButton(element));
+const arrayButtons = document.querySelectorAll(".button__del");
+console.log(arrayButtons);
+arrayButtons.forEach((element) => deleteButton(element));
+} catch (error) {
+  console.log("Что-то пошло не так");
+}
 
 // const showUser = (element) => {
 //   wrapUsers.insertAdjacentHTML(

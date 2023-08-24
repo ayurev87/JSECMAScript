@@ -27,7 +27,7 @@ a {
     align-items: center;
 }
 
-.row {
+#head .row {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,6 +38,19 @@ a {
     text-transform: uppercase;
     min-height: 30px;
     padding: 2px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: #222 solid 1px;
+    font-size: 8px;
+    text-align: center;
+    align-items: center;
+    text-transform: uppercase;
+    min-height: 30px;
+    padding: 1px;
 }
 
 .users {
