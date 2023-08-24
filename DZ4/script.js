@@ -5,7 +5,6 @@
 const urlUsers = "https://jsonplaceholder.typicode.com/users";
 const wrapUsers = document.querySelector(".users");
 
-
 /* const rowcellHead = (elementCell) => {
   const head4 = document.createElement("h4");
   head4.className = "title_table";
@@ -65,44 +64,42 @@ const getData = async (url) => {
 // }
 
 try {
-const users = await getData(urlUsers);
-console.log(users);
-const usersKeys = Object.keys(users[0]);
-console.log(usersKeys);
-wrapUsers.insertAdjacentHTML(
-  "beforeend",
-  `
+  const users = await getData(urlUsers);
+  console.log(users);
+  const usersKeys = Object.keys(users[0]);
+  console.log(usersKeys);
+  wrapUsers.insertAdjacentHTML(
+    "beforeend",
+    `
   <div class="blok" id="head">
     
   </div>
   `
-);
-let head = document.getElementById("head");
-function nameUpTable(keys) {
-  keys.forEach((element) => {
-    head.insertAdjacentHTML(
-      "beforeend",
-    `
+  );
+  let head = document.getElementById("head");
+  function nameUpTable(keys) {
+    keys.forEach((element) => {
+      head.insertAdjacentHTML(
+        "beforeend",
+        `
       <div class="header__title row">
         <h4 class="title__table"> ${element}</h4>
       </div>
     `
-    
-  )}
-
-  );
-  head.insertAdjacentHTML(
-    "beforeend",
-  `
+      );
+    });
+    head.insertAdjacentHTML(
+      "beforeend",
+      `
     <div class="header__title row">
       <h4 class="title__table"> Del</h4>
     </div>
-  `)
-}
-nameUpTable(usersKeys);
+  `
+    );
+  }
+  nameUpTable(usersKeys);
 
-
-/* let blok = document.createElement("div");
+  /* let blok = document.createElement("div");
 blok.className = "blok";
 blok.setAttribute("id", 'head');
 nameUpTable(usersKeys);
@@ -114,7 +111,7 @@ users.forEach((element, id) => {
   blok.className = `blok blok-${id}`;
   blok.setAttribute("id", id);
   wrapUsers.appendChild(blok); */
-  
+
   // function div(element, ID) {
   //   const blockUsers = document.getElementsByClassName(`blok-${id}`);
   //   blockUsers.insertAdjacentHTML(
@@ -142,56 +139,54 @@ users.forEach((element, id) => {
   //     rowcellId(elementuser.name,id);
   //   } else {
   //     rowcellId(elementuser, id);
-      
+
   //   }
   // });
 
-  
-  
-// });
+  // });
 
-users.forEach((element, id) => {
-  let rowUsers = Object.values(element);
-  console.log(rowUsers);
-  wrapUsers.insertAdjacentHTML(
-    "beforeend",
-    `
+  users.forEach((element, id) => {
+    let rowUsers = Object.values(element);
+    console.log(rowUsers);
+    wrapUsers.insertAdjacentHTML(
+      "beforeend",
+      `
     <div class="blok" id="${id}">
       
     </div>
     `
-  );
-  let blok = document.getElementById(id);
-  function div(element) {
-  blok.insertAdjacentHTML(
-    "beforeend",
-    `
+    );
+    let blok = document.getElementById(id);
+    function div(element) {
+      blok.insertAdjacentHTML(
+        "beforeend",
+        `
       <div class="header__title row" >
         <h4 class="title__table"> ${element}</h4>
       </div>
     `
-  );
-}
-  rowUsers.forEach((elementuser, index) => {
-    if (index === 4) {
-      div(elementuser.city);
-    } else if (index === 7) {
-      div(elementuser.name);
-    } else {
-      div(elementuser);
+      );
     }
-  });
-  blok.insertAdjacentHTML(
-    "beforeend",
-    `
+    rowUsers.forEach((elementuser, index) => {
+      if (index === 4) {
+        div(elementuser.city);
+      } else if (index === 7) {
+        div(elementuser.name);
+      } else {
+        div(elementuser);
+      }
+    });
+    blok.insertAdjacentHTML(
+      "beforeend",
+      `
     <div class=" row" id="${id}">
       <button class="button__del">X</button>
     </div>
     `
-  );
-  localStorage.setItem(element.id - 1, element.name);
-});
-/* users.forEach((element, id) => {
+    );
+    localStorage.setItem(element.id - 1, element.name);
+  });
+  /* users.forEach((element, id) => {
   let rowUsers = Object.values(element);
   console.log(rowUsers);
   rowUsers.forEach((elementuser, index) => {
@@ -214,19 +209,19 @@ users.forEach((element, id) => {
   localStorage.setItem(element.id - 1, element.name);
 }); */
 
-const deleteButton = (button) =>
-  button.addEventListener("click", () => {
-    const id = button.parentElement.id;
-    localStorage.removeItem(id);
-    document.getelementById(id).remove();
-  });
+  const deleteButton = (button) =>
+    button.addEventListener("click", () => {
+      let id = button.parentElement.id;
+      localStorage.removeItem(id);
+      document.getElementById(id).remove();
+    });
 
-// const btns = document.querySelectorAll("id");
-// console.log(btns);
-// btns.forEach((element) => deleteButton(element));
-const arrayButtons = document.querySelectorAll(".button__del");
-console.log(arrayButtons);
-arrayButtons.forEach((element) => deleteButton(element));
+  // const btns = document.querySelectorAll("id");
+  // console.log(btns);
+  // btns.forEach((element) => deleteButton(element));
+  const arrayButtons = document.querySelectorAll(".button__del");
+  console.log(arrayButtons);
+  arrayButtons.forEach((element) => deleteButton(element));
 } catch (error) {
   console.log("Что-то пошло не так");
 }
@@ -253,3 +248,20 @@ arrayButtons.forEach((element) => deleteButton(element));
 
 // const arrayButtons = document.querySelectorAll(".button__del");
 // arrayButtons.forEach((element) => deleteButton(element));
+
+///Задание 2
+// Необязательная задача
+
+// Необходимо реализовать отрисовку 10 картинок собак из API https://dog.ceo/dog-api/ с интервалом в 3 секунды.
+
+const dogUrl = "https://dog.ceo/api/breeds/image/random";
+const wrapDogs = document.querySelector(".dogs");
+
+try {
+  setInterval(async () => {
+    const conreteDog = await getData(dogUrl);
+    wrapDogs.innerHTML = `<img src='${conreteDog.message}' alt='dog photo'>`;
+  }, 3000);
+} catch (error) {
+  console.log("Что-то пошло не так");
+}
